@@ -13,14 +13,51 @@ navLinks.forEach(el => {
     event.preventDefault();
   });
 });
-const hideh2 = document.querySelector(".intro h2");
-hideh2.addEventListener("dblclick", event => {
-  hideh2.style.display = "none";
+let hideH2 = document.querySelector(".intro h2");
+hideH2.addEventListener("dblclick", event => {
+  hideH2.style.display = "none";
   setTimeout(function() {
-    hideh2.style.display = "block";
+    hideH2.style.display = "block";
   }, 8000);
 });
 let newBtn = document.createElement("button");
-let specialBtn = document.querySelector("header.intro");
+let headerArea = document.querySelector("header.intro");
 newBtn.innerText = "Click here!";
-specialBtn.insertBefore(newBtn, specialBtn.childNodes[3]);
+headerArea.insertBefore(newBtn, headerArea.childNodes[3]);
+
+let rotate = false;
+let runner;
+let degrees = 0;
+
+function start() {
+  runner = setInterval(function() {
+    degrees += 10;
+    newBtn.style.webkitTransform = `rotate(${degrees}deg)`;
+  }, 100);
+}
+
+function stop() {
+  clearInterval(runner);
+}
+
+newBtn.addEventListener("click", function() {
+  if (!rotate) {
+    rotate = true;
+    start();
+  } else {
+    rotate = false;
+    stop();
+  }
+});
+window.addEventListener("load", event => {
+  alert("Welcome to the Fun Bus! Have Fun!");
+});
+
+let pEle = document.querySelectorAll("p");
+
+window.addEventListener("resize", changeTextColor);
+function changeTextColor() {
+  pEle.forEach(el => {
+    el.style.color = "royalblue";
+  });
+}
